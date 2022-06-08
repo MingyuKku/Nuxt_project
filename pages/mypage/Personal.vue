@@ -2,9 +2,9 @@
   <div>
     <h1>개인정보변경 페이지</h1>
     <!-- <CustomLoading :api-loading="apiLoading" @load="loading = true"/> -->
-    <button @click="sortData('name')">이름순정렬</button>
-    <button @click="sortData('age')">나이순정렬</button>
-    <button @click="sortData('score')">점수순정렬</button>
+    <button :class="{on: sortFlag['nameCode']}" @click="sortData('nameCode')">이름순정렬</button>
+    <button :class="{on: sortFlag['age']}" @click="sortData('age')">나이순정렬</button>
+    <button :class="{on: sortFlag['score']}" @click="sortData('score')">점수순정렬</button>
 
     <ul>
       <li v-for="(data,idx) in testData" :key="idx">
@@ -27,7 +27,7 @@ export default {
       apiLoading: false,
       loading: false,
       sortFlag: {
-        name: false,
+        nameCode: false,
         age: false,
         score: false,
       },
@@ -55,29 +55,22 @@ export default {
   },
 
   mounted() {
-    
+    this.testData = this.testData.map(data=> ({
+      ...data,
+      nameCode: data.name.charCodeAt()
+    }))
   },
 
   methods: {
     sortData(filter) {
       this.sortFlagToggle(filter);
-      console.log('정렬클릭', this.sortBowl, this.sortBowl.length)
+      console.log('정렬클릭', this.testData)
 
       if(this.sortBowl.length < 1) return;
 
       if(this.sortBowl.length === 1) {
-        console.log('한개일때')
         this.testData.sort((a,b) => {
           const flagName = this.sortBowl[0]
-          if(flagName === 'name') {
-            
-            if(this.sortFlag[flagName]) {
-              return a.name.charCodeAt() - b.name.charCodeAt();
-            } else {
-              return b.name.charCodeAt() - a.name.charCodeAt();
-            }
-          }
-
           if(this.sortFlag[flagName]) {
             return a[flagName] - b[flagName];
           } else {
@@ -156,6 +149,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-
+<style  scoped>
+  button.on {
+    background: lightcoral;
+  }
 </style>
