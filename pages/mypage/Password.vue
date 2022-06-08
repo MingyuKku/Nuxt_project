@@ -1,8 +1,8 @@
 <template>
   <div>
     <h1>페스워드페이지</h1>
-    <CustomLoading :api-loading="apiLoading" @load="loading = true"/>
-    <div class="data" :class="{show: loading}">
+    <!-- <CustomLoading :api-loading="apiLoading" @load="loading = true"/> -->
+    <div class="data" :class="{show: !apiLoading}">
       {{ data }}
     </div>
     

@@ -1,8 +1,8 @@
 <template>
   <div class="app">
     <NuxtLink to="/mypage">마이페이지</NuxtLink>
-    <CustomLoading :api-loading="apiLoading" @load="loading = true"/>
-    <main class="data" :class="{show: loading}">
+    <!-- <CustomLoading :api-loading="apiLoading" @load="loading = true"/> -->
+    <main class="data" :class="{show: !loading}">
       <!-- :search-keyword="searchKeyword"
       @input="updateSearchKeyword" -->
       <SearchInput
@@ -55,13 +55,16 @@ export default {
     return {
       searchKeyword: '',
       // apiLoading: false,
-      loading: false,
+      loading: true,
     };
   },
   computed: {
     ...mapGetters(["isLogin"]),
   },
   mounted() {
+    if(this.apiLoading === false) {
+      this.loading = false;
+    }
   },
   
   methods: {

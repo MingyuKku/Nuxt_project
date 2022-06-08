@@ -1,8 +1,8 @@
 <template>
   <div class="mypage_wrap">
     <h1>구독 결제 페이지</h1>
-    <CustomLoading :api-loading="apiLoading" @load="loading = true"/>
-    <div class="data" :class="{show: loading}">
+    <!-- <CustomLoading :api-loading="apiLoading" @load="loading = true"/> -->
+    <div class="data" :class="{show: !apiLoading}">
       <ul>
         <li v-for="d in data" :key="d.id">
           <p>{{ d.name }}</p>
@@ -15,10 +15,10 @@
 </template>
 
 <script>
-import CustomLoading from '../../components/CustomLoading.vue';
+// import CustomLoading from '../../components/CustomLoading.vue';
 export default {
     name: "LearnNuxtIndex",
-    components: { CustomLoading },
+    // components: { CustomLoading },
     layout: "mypage",
     data() {
         return {
@@ -39,6 +39,8 @@ export default {
             this.apiLoading = true;
             const res = await this.$axios.get("http://localhost:3000/products");
             this.data = res.data;
+            console.log('정렬전',this.data)
+            
             this.apiLoading = false;
         },
         async testData1() {
