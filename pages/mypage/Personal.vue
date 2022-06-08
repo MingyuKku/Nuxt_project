@@ -62,6 +62,32 @@ export default {
     sortData(filter) {
       this.sortFlagToggle(filter);
       console.log('정렬클릭', this.sortBowl, this.sortBowl.length)
+
+      if(this.sortBowl.length < 1) return;
+
+      if(this.sortBowl.length === 1) {
+        console.log('한개일때')
+        this.testData.sort((a,b) => {
+          const flagName = this.sortBowl[0]
+          if(flagName === 'name') {
+            
+            if(this.sortFlag[flagName]) {
+              return a.name.charCodeAt() - b.name.charCodeAt();
+            } else {
+              return b.name.charCodeAt() - a.name.charCodeAt();
+            }
+          }
+
+          if(this.sortFlag[flagName]) {
+            return a[flagName] - b[flagName];
+          } else {
+            return b[flagName] - a[flagName];
+          }
+          
+        })
+      } else if(this.sortBowl.length > 1) {
+        console.log('여러개넹')
+      }
       // this.testData.sort((a,b) => {
         
       //   if(a[filter].charCodeAt() === b[filter].charCodeAt()) {
