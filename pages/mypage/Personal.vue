@@ -50,6 +50,8 @@ export default {
         {name: '강민규', age: 33, score: 33},
         {name: '강민규', age: 31, score: 77},
         {name: '강민규', age: 31, score: 34},
+        {name: '오지혜', age: 18, score: 88},
+        {name: '오지혜', age: 28, score: 34},
       ]
     };
   },
@@ -64,7 +66,6 @@ export default {
   methods: {
     sortData(filter) {
       this.sortFlagToggle(filter);
-      console.log('정렬클릭', this.testData)
 
       if(this.sortBowl.length < 1) return;
 
@@ -79,7 +80,32 @@ export default {
           
         })
       } else if(this.sortBowl.length > 1) {
-        console.log('여러개넹')
+        console.log('여러개넹',this.sortBowl)
+        const flagName1 = this.sortBowl[0];
+        this.testData.sort((a,b) => {
+          if(a[flagName1] === b[flagName1]) {
+            const flagName2 = this.sortBowl[1];
+
+            if(a[flagName2] === b[flagName2]) {
+              const flagName3 = this.sortBowl[2];
+
+              if(flagName3 && a[flagName3] === b[flagName3]) {
+                const flagName4 = this.sortBowl[3];
+                return a[flagName4] - b[flagName4];
+
+              } else {
+                return a[flagName3] - b[flagName3];
+              }
+
+            } else {
+              return a[flagName2] - b[flagName2];
+            }
+            
+          } else {
+            return a[flagName1] - b[flagName1];
+          }
+
+        })
       }
       // this.testData.sort((a,b) => {
         
@@ -115,36 +141,6 @@ export default {
         this.sortFlag[filter] = true;
       }
     },
-    sortName() {
-      this.testData.sort((a,b) => {
-        if(a.name.charCodeAt() > b.name.charCodeAt()) return 1;
-        else if(a.name.charCodeAt() < b.name.charCodeAt()) return -1;
-        else return 0;
-        // return a.name.charCodeAt() - b.name.charCodeAt();
-      })
-    },
-    sortPrice() {
-      this.testData.sort((a,b) => {
-        if(a.name.charCodeAt() === b.name.charCodeAt()) {
-          return (a.age * 1) - (b.age * 1);
-        } else {
-          return a.name.charCodeAt() - b.name.charCodeAt();
-        }
-      })
-    },
-    sortScore() {
-      this.testData.sort((a,b) => {
-        if(a.name.charCodeAt() === b.name.charCodeAt()) {
-          if(a.age === b.age) {
-            return a.score - b.score;
-          } else {
-            return a.age - b.age;
-          }
-        } else {
-          return a.name.charCodeAt() - b.name.charCodeAt();
-        }
-      })
-    }
   },
 };
 </script>
